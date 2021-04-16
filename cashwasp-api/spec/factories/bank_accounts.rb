@@ -3,7 +3,7 @@ FactoryBot.define do
         auth { Faker::Bank.iban }
         label { Faker::Business.name }
         holder { Faker::Bank.name }
-        type { "private account" }
+        account_type { "private account" }
         user_id nil
     end
 end

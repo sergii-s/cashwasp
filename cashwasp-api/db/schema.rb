@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_071139) do
     t.string "auth"
     t.string "label"
     t.string "holder"
-    t.string "type"
+    t.string "account_type"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
