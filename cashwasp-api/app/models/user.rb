@@ -12,6 +12,7 @@ Which solution is more common for ruby users ?
 
 class User < ApplicationRecord
     has_many :bank_accounts, dependent: :destroy
+    has_secure_password
 
     # validations
     validates_presence_of :email, :name, :password_digest
