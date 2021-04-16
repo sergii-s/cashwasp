@@ -70,3 +70,26 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+RSpec.configure do |config|
+  # add `FactoryBot` methods
+  config.include FactoryBot::Syntax::Methods
+
+  # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  # start the transaction strategy as examples are run
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+end
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+RSpec.configure do |config|
+  config.include RequestSpecHelper, type: :request
+end
