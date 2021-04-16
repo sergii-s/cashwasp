@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_04_16_071139) do
 
   create_table "bank_accounts", force: :cascade do |t|
+    t.string "auth"
     t.string "label"
     t.string "holder"
     t.string "type"
