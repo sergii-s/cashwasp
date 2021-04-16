@@ -14,5 +14,5 @@ class User < ApplicationRecord
     has_many :bank_accounts, dependent: :destroy
 
     # validations
-    validates_presence_of :email, :name
+    validates_presence_of :email, :name, :password_digest
 end

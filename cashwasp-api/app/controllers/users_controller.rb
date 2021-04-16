@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.create!(user_params)
+    @user = User.create!(user_create_params)
     json_response(@user, :created)
   end
 
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   # PUT /users/:id
   def update
-    @user.update(user_params)
+    @user.update(user_update_params)
     head :no_content
   end
 
@@ -32,9 +32,14 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
+  def user_update_params
     # whitelist params
     params.permit(:name, :email)
+  end
+
+  def user_create_params
+    # whitelist params
+    params.permit(:name, :email, :password_digest)
   end
 
   def set_user

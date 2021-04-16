@@ -51,7 +51,7 @@ RSpec.describe "UsersApi", type: :request do
   # Test suite for POST /users
   describe 'POST /users' do
     # valid payload
-    let(:valid_attributes) { { name: 'Linus Torvalds', email: "a@a.a" } }
+    let(:valid_attributes) { { name: 'Linus Torvalds', email: "a@a.a", password_digest: "XXXXXX" } }
 
     context 'when the request is valid' do
       before { post '/users', params: valid_attributes }
