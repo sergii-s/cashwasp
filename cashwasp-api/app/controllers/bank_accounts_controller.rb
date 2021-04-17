@@ -10,7 +10,7 @@ class BankAccountsController < ApplicationController
 
   # POST /users/:user_id/bank_accounts
   def create
-    @bank_account = User.create!(bank_account_params)
+    @bank_account = @user.bank_accounts.create!(bank_account_params.merge(:account_type => 'personal'))
     json_response(@bank_account, :created)
   end
 
@@ -35,7 +35,7 @@ class BankAccountsController < ApplicationController
 
   def bank_account_params
     # whitelist params
-    params.permit(:auth, :label, :holder, :account_type)
+    params.permit(:auth, :label, :holder)
   end
 
   def set_user

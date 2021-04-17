@@ -73,5 +73,32 @@ RSpec.describe "BankAccountsApi", type: :request do
     end
   end
 
-#  etc. etc.
+  # Test suite for POST /users/:user_id/bank_accounts
+  describe 'POST /users/:user_id/bank_accounts' do
+    let(:valid_attributes) { { auth: 'IBAN-123', label: "My personal account", holder: "BNP" } }
+    before { post "/users/#{user_id}/bank_accounts", params: valid_attributes.to_json, headers: headers }
+
+    context 'when user exists' do
+      it 'returns status code 200' do
+        expect(response).to have_http_status(201)
+      end
+      it 'returns a not found message' do
+        expect(response.body).to match(/"account_type":"personal"/)
+      end
+    end
+
+    context 'when user not exist' do
+      let(:user_id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find User/)
+      end
+    end
+  end
+
+  #  etc. etc.
 end
