@@ -11,8 +11,8 @@ Which solution is more common for ruby users ?
 =end
 
 class User < ApplicationRecord
-    has_many :bank_accounts, dependent: :destroy
     has_secure_password
+    has_many :bank_accounts, dependent: :destroy
 
     # validations
     validates_presence_of :email, :name, :password_digest
