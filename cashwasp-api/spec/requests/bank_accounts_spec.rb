@@ -5,10 +5,11 @@ RSpec.describe "BankAccountsApi", type: :request do
   let!(:bank_accounts) { create_list(:bank_account, 2, user_id: user.id) }
   let(:user_id) { user.id }
   let(:id) { bank_accounts.first.id }
+  let(:headers) { valid_headers }
 
   # Test suite for GET /users/:user_id/bank_accounts
   describe 'GET /users/:user_id/bank_accounts' do
-    before { get "/users/#{user_id}/bank_accounts" }
+    before { get "/users/#{user_id}/bank_accounts", headers: headers }
 
     context 'when user exists' do
       it 'returns status code 200' do
@@ -35,7 +36,7 @@ RSpec.describe "BankAccountsApi", type: :request do
 
   # Test suite for GET /users/:user_id/bank_accounts/:id
   describe 'GET /users/:user_id/bank_accounts/:id' do
-    before { get "/users/#{user_id}/bank_accounts/#{id}" }
+    before { get "/users/#{user_id}/bank_accounts/#{id}", headers: headers }
 
     context 'when user not exist' do
       let(:user_id) { 0 }
