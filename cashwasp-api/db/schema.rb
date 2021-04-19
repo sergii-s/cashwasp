@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_150814) do
+ActiveRecord::Schema.define(version: 2021_04_18_091939) do
 
   create_table "bank_accounts", force: :cascade do |t|
     t.string "auth"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 2021_04_16_150814) do
     t.index ["user_id"], name: "index_bank_accounts_on_user_id"
   end
 
+  create_table "transfers", force: :cascade do |t|
+    t.decimal "amount"
+    t.integer "source_id", null: false
+    t.integer "destination_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["destination_id"], name: "index_transfers_on_destination_id"
+    t.index ["source_id"], name: "index_transfers_on_source_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "name"
@@ -32,4 +42,6 @@ ActiveRecord::Schema.define(version: 2021_04_16_150814) do
   end
 
   add_foreign_key "bank_accounts", "users"
+  add_foreign_key "transfers", "bank_accounts", column: "destination_id"
+  add_foreign_key "transfers", "bank_accounts", column: "source_id"
 end
